@@ -2930,7 +2930,7 @@ h3 {
 .stat-number {
     font-size: 3rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -3048,7 +3048,7 @@ h3 {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
     padding: 12px 24px;
     border-radius: 10px;
     font-weight: 600;
@@ -3058,7 +3058,7 @@ h3 {
 
 .download-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(245,158,11,0.4);
+    box-shadow: 0 6px 20px rgba(34,197,94,0.4);
 }
 
 .download-btn svg {
