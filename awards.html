@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koloso Awards - Teacher of the Year</title>
+    <link rel="icon" type="image/jpeg" href="images/fav-icon.jpeg">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #F0D080;
+            --gold-pale: #FBF0D0;
+            --deep: #8B6B4A;
+            --deep2: #7A5C3E;
+        }
+
+        /* Awards-specific styles */
+        .awards-hero {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 160px 24px 80px;
+            background: var(--deep);
+            overflow: hidden;
+        }
+
+        .awards-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('images/teacher 1.webp') center center / cover no-repeat;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .awards-hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(139,107,74,0.3) 0%, rgba(139,107,74,0.6) 100%);
+            pointer-events: none;
+        }
+
+        .hero-year {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(90px, 18vw, 180px);
+            font-weight: 900;
+            line-height: 1;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(201,168,76,.4);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .logo-tag {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #FAF6EE;
+            border: 1px solid rgba(250,246,238,0.5);
+            padding: 8px 20px;
+            border-radius: 2px;
+            margin-bottom: 48px;
+            position: relative;
+            z-index: 3;
+            animation: fadeUp .8s .2s ease forwards;
+            opacity: 0;
+        }
+
+        .awards-hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 7vw, 80px);
+            font-weight: 900;
+            line-height: 1.05;
+            color: #FAF6EE;
+            position: relative;
+            z-index: 3;
+            animation: fadeUp .9s .4s ease forwards;
+            opacity: 0;
+        }
+
+        .awards-hero-title em {
+            font-style: italic;
+            color: var(--gold);
+            display: block;
+        }
+
+        .awards-divider {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 32px auto;
+            position: relative;
+            z-index: 3;
+            animation: fadeUp .8s .6s ease forwards;
+            opacity: 0;
+        }
+
+        .awards-hero-sub {
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: rgba(250,246,238,0.85);
+            max-width: 480px;
+            line-height: 1.7;
+            position: relative;
+            z-index: 3;
+            animation: fadeUp .8s .8s ease forwards;
+            opacity: 0;
+        }
+
+        /* Awards Section */
+        .awards-section {
+            background: var(--deep);
+            padding: 80px 24px 100px;
+        }
+
+        .awards-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .awards-label {
+            font-size: 10px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .awards-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 700;
+            text-align: center;
+            color: #FAF6EE;
+            margin-bottom: 64px;
+            line-height: 1.2;
+        }
+
+        /* Featured Awards Grid */
+        .featured-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 16px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .award-card {
+            background: #FAF6EE;
+            border: 1px solid rgba(201,168,76,.3);
+            padding: 28px 24px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .3s, transform .3s;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .award-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            transform: scaleX(0);
+            transition: transform .4s;
+        }
+
+        .award-card:hover {
+            border-color: rgba(201,168,76,.4);
+            transform: translateY(-4px);
+        }
+
+        .award-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .award-card.featured {
+            background: #F5EEE0;
+            border-color: rgba(201,168,76,.5);
+        }
+
+        .award-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            font-weight: 900;
+            color: rgba(201,168,76,.15);
+            line-height: 1;
+            margin-bottom: 8px;
+            letter-spacing: -2px;
+        }
+
+        .award-icon {
+            font-size: 28px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .award-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #8B6914;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .award-desc {
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.7;
+            color: #5C4A1F;
+        }
+
+        .award-tag {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid rgba(201,168,76,.3);
+            padding: 5px 12px;
+            border-radius: 2px;
+        }
+
+        .award-nominate {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #1a4d6e 0%, #0d3a54 100%);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .award-nominate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26,77,110,0.4);
+        }
+
+        .award-nominate.student {
+            background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+        }
+
+        /* Fun Awards Grid */
+        .fun-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .fun-card {
+            background: #FAF6EE;
+            border: 1px solid rgba(201,168,76,.3);
+            padding: 24px 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .3s, background .3s;
+            border-radius: 8px;
+        }
+
+        .fun-card:hover {
+            border-color: rgba(201,168,76,.5);
+            background: #F5EEE0;
+        }
+
+        .fun-card-inner {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .fun-emoji {
+            font-size: 32px;
+            flex-shrink: 0;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(201,168,76,.15);
+            border-radius: 4px;
+        }
+
+        .fun-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            font-weight: 700;
+            color: #8B6914;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .fun-text p {
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.65;
+            color: #5C4A1F;
+        }
+
+        .fun-text .award-nominate {
+            margin-top: 12px;
+        }
+
+        /* Awards CTA */
+        .awards-cta {
+            background: linear-gradient(135deg, #D4A012 0%, #B8860B 100%);
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .awards-cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 4vw, 36px);
+            color: #2C1810;
+            margin-bottom: 16px;
+        }
+
+        .awards-cta p {
+            color: #3D2415;
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .awards-cta .btn {
+            background: #2C1810;
+            color: #F0D080;
+            padding: 14px 32px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .awards-cta .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .award-card {
+                padding: 32px 24px;
+            }
+            .fun-card {
+                padding: 28px 24px;
+            }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--deep2);
+            border: 1px solid rgba(201,168,76,.3);
+            border-radius: 12px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            padding: 32px 32px 0;
+            text-align: center;
+        }
+
+        .modal-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+        }
+
+        .modal-header p {
+            color: rgba(250,246,238,.6);
+            font-size: 14px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: rgba(250,246,238,.5);
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: var(--gold);
+        }
+
+        .modal-body {
+            padding: 32px;
+        }
+
+        .nomination-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .nomination-form label {
+            display: block;
+            color: var(--gold-light);
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .nomination-form input,
+        .nomination-form select,
+        .nomination-form textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(201,168,76,.2);
+            border-radius: 6px;
+            color: #FAF6EE;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .nomination-form input:focus,
+        .nomination-form select:focus,
+        .nomination-form textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .nomination-form input::placeholder,
+        .nomination-form textarea::placeholder {
+            color: rgba(250,246,238,.3);
+        }
+
+        .nomination-form select {
+            cursor: pointer;
+        }
+
+        .nomination-form select option {
+            background: var(--deep2);
+            color: #FAF6EE;
+        }
+
+        .nomination-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 500px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .nomination-form .btn-submit {
+            width: 100%;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--gold) 0%, #B8973F 100%);
+            color: var(--deep);
+            font-weight: 600;
+            font-size: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 8px;
+        }
+
+        .nomination-form .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+        }
+
+        .form-section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: var(--gold);
+            margin: 24px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(201,168,76,.2);
+        }
+
+        .form-section-title:first-of-type {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <img src="images/KOLOSO LOGO.png" alt="Koloso">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="teaching-loop.html">Teaching<br>Loop</a></li>
+                    <li><a href="benchmark.html">Koloso<br>Benchmark</a></li>
+                    <li><a href="festival.html">Festival of<br>Numbers</a></li>
+                    <li><a href="awards.html" class="active">Koloso<br>Awards</a></li>
+                    <li><a href="evidence.html">Evidence &<br>Impact</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <a href="index.html#book-demo" class="btn btn-primary">Get Started for Free</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Awards Hero -->
+    <section class="awards-hero">
+        <div class="hero-year">2025</div>
+        <div class="logo-tag">Koloso Education Awards</div>
+        <h1 class="awards-hero-title">
+            Teacher of<br>
+            <em>the Year</em>
+        </h1>
+        <div class="awards-divider"></div>
+        <p class="awards-hero-sub">Celebrating the educators who show up every single day - and make it count.</p>
+    </section>
+
+    <!-- Awards Section -->
+    <section class="awards-section">
+        <div class="awards-container">
+            <p class="awards-label">The Honours</p>
+            <h2 class="awards-title">Award Categories</h2>
+
+            <div class="featured-grid">
+                <div class="award-card featured">
+                    <div class="award-number">01</div>
+                    <span class="award-icon">🏆</span>
+                    <div class="award-name">Overall Teacher of the Year</div>
+                    <p class="award-desc">The highest honour across all categories. An educator whose impact transcends the classroom and inspires a generation.</p>
+                    <span class="award-tag">Grand Prize</span>
+                    <button class="award-nominate" onclick="openNominationModal()">Nominate a Teacher</button>
+                </div>
+                <div class="award-card featured">
+                    <div class="award-number">02</div>
+                    <span class="award-icon">🏛️</span>
+                    <div class="award-name">Head Teacher of the Year</div>
+                    <p class="award-desc">For the leader who sets the tone - building a school culture where every teacher thrives and every learner is seen.</p>
+                    <span class="award-tag">Leadership</span>
+                    <button class="award-nominate" onclick="openNominationModal()">Nominate a Teacher</button>
+                </div>
+                <div class="award-card">
+                    <div class="award-number">03</div>
+                    <span class="award-icon">🌱</span>
+                    <div class="award-name">Teacher of the Year - Primary</div>
+                    <p class="award-desc">Recognising the foundation builders who light the first flame of curiosity in young learners.</p>
+                    <span class="award-tag">Primary Education</span>
+                    <button class="award-nominate" onclick="openNominationModal()">Nominate a Teacher</button>
+                </div>
+                <div class="award-card">
+                    <div class="award-number">04</div>
+                    <span class="award-icon">📐</span>
+                    <div class="award-name">Teacher of the Year - Secondary</div>
+                    <p class="award-desc">For the educator who meets teenagers exactly where they are - and challenges them to go further.</p>
+                    <span class="award-tag">Secondary Education</span>
+                    <button class="award-nominate" onclick="openNominationModal()">Nominate a Teacher</button>
+                </div>
+            </div>
+
+            <!-- Additional Categories -->
+            <div class="fun-grid">
+                <div class="fun-card">
+                    <div class="fun-card-inner">
+                        <div class="fun-emoji">🌟</div>
+                        <div class="fun-text">
+                            <h3>Rising Star</h3>
+                            <p>Best New Teacher (under 2 years). Fresh energy, bold ideas, and the kind of enthusiasm that reminds everyone why they got into this.</p>
+                            <button class="award-nominate" onclick="openNominationModal()">Nominate a Teacher</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="fun-card">
+                    <div class="fun-card-inner">
+                        <div class="fun-emoji">✨</div>
+                        <div class="fun-text">
+                            <h3>The Spark Award</h3>
+                            <p>Most Inspiring Classroom Environment. For the teacher whose room makes students stop at the door and actually want to come in.</p>
+                            <button class="award-nominate" onclick="openNominationModal()">Nominate a Teacher</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="fun-card">
+                    <div class="fun-card-inner">
+                        <div class="fun-emoji">💡</div>
+                        <div class="fun-text">
+                            <h3>The Koloso Champion</h3>
+                            <p>Most Impactful Use of Technology in Teaching. For the educator who took every tool available - and made it count for learners.</p>
+                            <button class="award-nominate" onclick="openNominationModal()">Nominate a Teacher</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="fun-card">
+                    <div class="fun-card-inner">
+                        <div class="fun-emoji">🤝</div>
+                        <div class="fun-text">
+                            <h3>Community Roots Award</h3>
+                            <p>Best Parent & Community Engagement. Because great education doesn't end at the school gate.</p>
+                            <button class="award-nominate" onclick="openNominationModal()">Nominate a Teacher</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="fun-card">
+                    <div class="fun-card-inner">
+                        <div class="fun-emoji">🔥</div>
+                        <div class="fun-text">
+                            <h3>The Resilience Award</h3>
+                            <p>Outstanding Teaching Against the Odds. For the educator who kept showing up - and kept delivering - no matter what.</p>
+                            <button class="award-nominate" onclick="openNominationModal()">Nominate a Teacher</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="fun-card">
+                    <div class="fun-card-inner">
+                        <div class="fun-emoji">⏰</div>
+                        <div class="fun-text">
+                            <h3>The 3am Award</h3>
+                            <p>Most Dedicated Teacher. Every school has one. The one marking at midnight, planning at dawn, and still smiling by Monday morning.</p>
+                            <button class="award-nominate" onclick="openNominationModal()">Nominate a Teacher</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="fun-card">
+                    <div class="fun-card-inner">
+                        <div class="fun-emoji">⭐</div>
+                        <div class="fun-text">
+                            <h3>Koloso Star Award</h3>
+                            <p>Best Student. For the learner who shows exceptional dedication, curiosity, and growth - inspiring their classmates and making their teachers proud.</p>
+                            <button class="award-nominate student" onclick="openNominationModal()">Nominate a Student</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="awards-cta">
+        <h2>Nominate a Teacher</h2>
+        <p>Know an educator who deserves recognition? Submit your nomination now.</p>
+        <button class="btn" onclick="openNominationModal()">Nominate Now</button>
+    </section>
+
+    <!-- Nomination Modal -->
+    <div class="modal-overlay" id="nominationModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeNominationModal()">&times;</button>
+            <div class="modal-header">
+                <h2>Nominate a Teacher</h2>
+                <p>Help us recognise outstanding educators</p>
+            </div>
+            <div class="modal-body">
+                <form class="nomination-form" action="https://formspree.io/f/info@koloso.app" method="POST">
+                    <div class="form-section-title">About the Nominee</div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nominee-name">Teacher's Full Name *</label>
+                            <input type="text" id="nominee-name" name="nominee-name" placeholder="Enter teacher's name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nominee-school">School Name *</label>
+                            <input type="text" id="nominee-school" name="nominee-school" placeholder="Enter school name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nominee-role">Teaching Level *</label>
+                            <select id="nominee-role" name="nominee-role" required>
+                                <option value="">Select level</option>
+                                <option value="primary">Primary</option>
+                                <option value="secondary">Secondary</option>
+                                <option value="head-teacher">Head Teacher</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="award-category">Award Category *</label>
+                            <select id="award-category" name="award-category" required>
+                                <option value="">Select category</option>
+                                <option value="head-teacher-year">Head Teacher of the Year</option>
+                                <option value="teacher-primary">Teacher of the Year - Primary</option>
+                                <option value="teacher-secondary">Teacher of the Year - Secondary</option>
+                                <option value="spark-award">The Spark Award</option>
+                                <option value="rising-star">Rising Star</option>
+                                <option value="koloso-champion">The Koloso Champion</option>
+                                <option value="community-roots">Community Roots Award</option>
+                                <option value="resilience-award">The Resilience Award</option>
+                                <option value="3am-award">The 3am Award</option>
+                                <option value="koloso-star">Koloso Star Award (Best Student)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nomination-reason">Why are you nominating this teacher? *</label>
+                        <textarea id="nomination-reason" name="nomination-reason" placeholder="Tell us what makes this teacher exceptional..." required></textarea>
+                    </div>
+
+                    <div class="form-section-title">Your Details</div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nominator-name">Your Full Name *</label>
+                            <input type="text" id="nominator-name" name="nominator-name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nominator-email">Your Email *</label>
+                            <input type="email" id="nominator-email" name="nominator-email" placeholder="your@email.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nominator-phone">Your Phone Number</label>
+                            <input type="tel" id="nominator-phone" name="nominator-phone" placeholder="+260 XXX XXX XXX">
+                        </div>
+                        <div class="form-group">
+                            <label for="nominator-relationship">Your Relationship to Nominee *</label>
+                            <select id="nominator-relationship" name="nominator-relationship" required>
+                                <option value="">Select relationship</option>
+                                <option value="colleague">Colleague</option>
+                                <option value="parent">Parent</option>
+                                <option value="student">Student</option>
+                                <option value="administrator">School Administrator</option>
+                                <option value="community">Community Member</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="_subject" value="New Koloso Awards Nomination">
+                    <button type="submit" class="btn-submit">Submit Nomination</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="images/KOLOSO LOGO.png" alt="Koloso" class="footer-logo">
+                    <p>Empowering teachers to give every learner the attention they deserve.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="teaching-loop.html">Teaching Loop</a></li>
+                        <li><a href="benchmark.html">Koloso Benchmark</a></li>
+                        <li><a href="festival.html">Festival of Numbers</a></li>
+                        <li><a href="awards.html">Koloso Awards</a></li>
+                        <li><a href="evidence.html">Evidence & Impact</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Centre</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Koloso. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function openNominationModal() {
+            document.getElementById('nominationModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNominationModal() {
+            document.getElementById('nominationModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('nominationModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeNominationModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeNominationModal();
+            }
+        });
+    </script>
+</body>
+</html>
